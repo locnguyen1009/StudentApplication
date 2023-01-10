@@ -14,8 +14,6 @@ public class StudentController {
     private static Map<Long, Students> students = new HashMap<>();
     private static Long count = 2L;
 
-    static Students student1 = new Students(1L,"Loc", 90);
-
     static {
         Students student1 = new Students(1L, "Alex", 90);
         Students student2 = new Students(2L,"John", 80);
