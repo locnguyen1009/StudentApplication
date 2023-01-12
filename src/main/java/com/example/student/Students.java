@@ -1,5 +1,6 @@
 package com.example.student;
 
+// TODO: why the class user Students in plural form? Does this class represent one student or many students?
 public class Students {
     private Long id;
     private String name;
