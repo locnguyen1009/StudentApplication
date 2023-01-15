@@ -1,11 +1,11 @@
 package com.example.student;
 
-public class Students {
+public class Student {
     private Long id;
     private String name;
     private int grade;
 
-    public Students(Long id, String name, Integer grade) {
+    public Student(Long id, String name, Integer grade) {
         this.id = id;
         this.name = name;
         this.grade = grade;
