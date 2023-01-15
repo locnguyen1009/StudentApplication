@@ -40,7 +40,6 @@ public class StudentController {
             return "update student ID #" + studentId +" successfully";
         } else {
             return "Student ID #"+ studentId + " does not exist";
-
         }
     }
 
