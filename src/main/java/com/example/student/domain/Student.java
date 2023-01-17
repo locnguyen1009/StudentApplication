@@ -1,4 +1,5 @@
-package com.example.student;
+package com.example.student.domain;
+
 
 public class Student {
     private Long id;
@@ -11,14 +12,6 @@ public class Student {
         this.grade = grade;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Long getId() {
         return id;
     }
@@ -27,11 +20,19 @@ public class Student {
         this.id = id;
     }
 
-    public Integer getGrade() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(int grade) {
         this.grade = grade;
     }
 }
