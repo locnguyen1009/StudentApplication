@@ -36,7 +36,6 @@ public class StudentSrvImpl implements StudentService {
     public String updateStudent(Long id, Student student) {
         if(students.containsKey(id)) {
 //            TODO: question: is it necessary to set studentId here?
-            student.setId(id);
             students.put(id, student);
             return "update student ID #" + id +" successfully";
         } else {
