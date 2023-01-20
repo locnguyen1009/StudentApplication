@@ -27,7 +27,7 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-//    TODO: when a student doesn't exist for a request_id, then return HttpStatus 4040 (NotFound).
+//    TODO: when a student doesn't exist for a request_id, then return HttpStatus 404 (NotFound).
     public Student getStudentById (@PathVariable Long studentId) {
         Student student = studentSrv.getStudentById(studentId);
         if (student == null) {
@@ -42,13 +42,16 @@ public class StudentController {
     }
 
     @PutMapping("/{studentId}")
+    //    TODO: when a student doesn't exist for a request_id, then return HttpStatus 404 (NotFound).
     public String updateStudent(@PathVariable Long studentId, @RequestBody Student student){
 
         return studentSrv.updateStudent(studentId, student);
     }
 
     @DeleteMapping("/{studentId}")
+    //    TODO: when a student doesn't exist for a request_id, then return HttpStatus 404 (NotFound).
     public String deleteStudent(@PathVariable Long studentId) {
         return studentSrv.deleteStudent(studentId);
     }
+
 }

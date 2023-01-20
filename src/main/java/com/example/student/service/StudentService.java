@@ -8,7 +8,9 @@ public interface StudentService {
 
     Student getStudentById(long id);
     Student addStudent (Student student);
+//    TODO: this method should return student with updated information instead of String
     String updateStudent (Long id, Student student);
+//   TODO: This method should return void
     String deleteStudent (Long id);
 
 }
