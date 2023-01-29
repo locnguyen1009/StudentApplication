@@ -2,6 +2,8 @@ package com.example.student.controller;
 
 import com.example.student.domain.Student;
 import com.example.student.service.impl.StudentSrvImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -43,15 +45,22 @@ public class StudentController {
 
     @PutMapping("/{studentId}")
     //    TODO: when a student doesn't exist for a request_id, then return HttpStatus 404 (NotFound).
-    public String updateStudent(@PathVariable Long studentId, @RequestBody Student student){
-
-        return studentSrv.updateStudent(studentId, student);
+    public ResponseEntity<Student> updateStudent(@PathVariable Long studentId, @RequestBody Student student){
+        Student updateStu = studentSrv.updateStudent(studentId, student);
+        if (updateStu== null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(updateStu, HttpStatus.OK);
     }
 
     @DeleteMapping("/{studentId}")
     //    TODO: when a student doesn't exist for a request_id, then return HttpStatus 404 (NotFound).
-    public String deleteStudent(@PathVariable Long studentId) {
-        return studentSrv.deleteStudent(studentId);
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
+        if(studentSrv.getStudentById(studentId)==null){
+            return ResponseEntity.notFound().build();
+        }
+        studentSrv.deleteStudent(studentId);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.student.domain.Student;
 import com.example.student.service.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,19 +34,21 @@ public class StudentSrvImpl implements StudentService {
     }
 
     @Override
-    public String updateStudent(Long id, Student student) {
-        if(students.containsKey(id)) {
+    public Student updateStudent(Long id, Student student) {
 //            TODO: question: is it necessary to set studentId here?
+            if(!students.containsKey(id)){
+                return null;
+            }
+            student.setId(id);
             students.put(id, student);
-            return "update student ID #" + id +" successfully";
-        } else {
-            return "Student ID #" + id + " does not exist";
-        }
+            return student;
     }
 
     @Override
-    public String deleteStudent(Long id) {
+    public void deleteStudent(Long id) {
+        if(!students.containsKey(id)){
+            String error = "no ID in the system";
+        }
         students.remove(id);
-        return "student ID #" + id + " is deleted successfully";
     }
 }
