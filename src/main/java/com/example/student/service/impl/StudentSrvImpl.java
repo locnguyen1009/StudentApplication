@@ -13,6 +13,8 @@ import java.util.Map;
 @Service
 public class StudentSrvImpl implements StudentService {
 
+//    TODO: inject StudentRepo here to interact with persistent layer
+//    TODO: remove students map from here.
     private Map<Long, Student> students = new HashMap<>();
     private Long count = 0L;
 
@@ -35,7 +37,6 @@ public class StudentSrvImpl implements StudentService {
 
     @Override
     public Student updateStudent(Long id, Student student) {
-//            TODO: question: is it necessary to set studentId here?
             if(!students.containsKey(id)){
                 return null;
             }
