@@ -46,9 +46,6 @@ public class StudentSrvImpl implements StudentService {
 
     @Override
     public void deleteStudent(Long id) {
-        if(!students.containsKey(id)){
-            String error = "no ID in the system";
-        }
         students.remove(id);
     }
 }
