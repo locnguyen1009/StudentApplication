@@ -1,12 +1,12 @@
 package com.example.student.domain;
 
-
 public class Student {
     private Long id;
     private String name;
     private int grade;
 
     public Student(Long id, String name, Integer grade) {
+
         this.id = id;
         this.name = name;
         this.grade = grade;

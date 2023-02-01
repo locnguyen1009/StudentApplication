@@ -5,7 +5,10 @@ import com.example.student.service.impl.StudentSrvImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -22,14 +25,15 @@ public class StudentController {
     public List<Student> getStudents(){
         return studentSrv.getStudents();
     }
-
+    //Adding optional for null check
     @GetMapping("/{studentId}")
     public Student getStudentById (@PathVariable Long studentId) {
-        Student student = studentSrv.getStudentById(studentId);
-        if (student == null) {
-            throw new StudentNotFoundException("id " + studentId);
-        }
-        return student;
+        Optional<Student> student = Optional.ofNullable(studentSrv.getStudentById(studentId));
+//        if (student == null) {
+//            throw new StudentNotFoundException("id " + studentId);
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
+//        }
+        return student.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
     }
 
     @PostMapping("")
@@ -38,13 +42,15 @@ public class StudentController {
     }
 
     @PutMapping("/{studentId}")
-
-    public ResponseEntity<Student> updateStudent(@PathVariable Long studentId, @RequestBody Student student){
-        Student updateStu = studentSrv.updateStudent(studentId, student);
-        if (updateStu== null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updateStu, HttpStatus.OK);
+//adding optional for null check
+    public /*ResponseEntity<Student>*/ Student updateStudent(@PathVariable Long studentId, @RequestBody Student student){
+        Optional<Student> updateStu = Optional.ofNullable(studentSrv.updateStudent(studentId, student));
+//        if (updateStu== null) {
+//            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found");
+//        }
+//        return new ResponseEntity<>(updateStu, HttpStatus.OK);
+        return updateStu.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
     }
 
     @DeleteMapping("/{studentId}")
