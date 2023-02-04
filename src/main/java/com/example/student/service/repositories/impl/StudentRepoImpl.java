@@ -4,10 +4,7 @@ import com.example.student.domain.Student;
 import com.example.student.service.repositories.StudentRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //TODO: implement StudentRepo interface here
 @Service
@@ -21,8 +18,12 @@ public class StudentRepoImpl implements StudentRepo {
     }
 
     @Override
-    public Student getStudentById(long id) {
-        return students.get(id);
+    public Optional<Student> getStudentById(long id) {
+        if(!students.containsKey(id)){
+            return Optional.empty();
+        }
+        return Optional.of(students.get(id));
+
     }
 
     @Override
@@ -34,13 +35,13 @@ public class StudentRepoImpl implements StudentRepo {
     }
 
     @Override
-    public Student updateStudent(Long id, Student student) {
+    public Optional<Student> updateStudent(Long id, Student student) {
         if(!students.containsKey(id)){
-            return null;
+            return Optional.empty();
         }
         student.setId(id);
         students.put(id, student);
-        return student;
+        return Optional.of(student);
     }
 
     @Override

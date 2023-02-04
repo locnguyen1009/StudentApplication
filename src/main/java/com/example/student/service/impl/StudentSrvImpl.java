@@ -25,7 +25,7 @@ public class StudentSrvImpl implements StudentService {
     }
 
     @Override
-    public Student getStudentById(long id) {
+    public Optional<Student> getStudentById(long id) {
         return studentRepoImpl.getStudentById(id);
     }
 
@@ -35,7 +35,7 @@ public class StudentSrvImpl implements StudentService {
     }
 
     @Override
-    public Student updateStudent(Long id, Student student) {
+    public Optional<Student> updateStudent(Long id, Student student) {
             return studentRepoImpl.updateStudent(id, student);
     }
 

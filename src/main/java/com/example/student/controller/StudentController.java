@@ -28,11 +28,7 @@ public class StudentController {
     //Adding optional for null check
     @GetMapping("/{studentId}")
     public Student getStudentById (@PathVariable Long studentId) {
-        Optional<Student> student = Optional.ofNullable(studentSrv.getStudentById(studentId));
-//        if (student == null) {
-//            throw new StudentNotFoundException("id " + studentId);
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
-//        }
+        Optional<Student> student = studentSrv.getStudentById(studentId);
         return student.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
     }
 
@@ -42,20 +38,16 @@ public class StudentController {
     }
 
     @PutMapping("/{studentId}")
-//adding optional for null check
-    public /*ResponseEntity<Student>*/ Student updateStudent(@PathVariable Long studentId, @RequestBody Student student){
-        Optional<Student> updateStu = Optional.ofNullable(studentSrv.updateStudent(studentId, student));
-//        if (updateStu== null) {
-//            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found");
-//        }
-//        return new ResponseEntity<>(updateStu, HttpStatus.OK);
-        return updateStu.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
+
+    public ResponseEntity<Student> updateStudent(@PathVariable Long studentId, @RequestBody Student student){
+        Optional<Student> updatedStudent = studentSrv.updateStudent(studentId, student);
+        return updatedStudent.map(st -> ResponseEntity.ok(st))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found"));
     }
 
     @DeleteMapping("/{studentId}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
-        if(studentSrv.getStudentById(studentId)==null){
+        if(studentSrv.getStudentById(studentId).isEmpty()){
             return ResponseEntity.notFound().build();
         }
         studentSrv.deleteStudent(studentId);
