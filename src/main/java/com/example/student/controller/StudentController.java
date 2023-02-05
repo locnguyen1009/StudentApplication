@@ -48,7 +48,7 @@ public class StudentController {
     @DeleteMapping("/{studentId}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
         if(studentSrv.getStudentById(studentId).isEmpty()){
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
         }
         studentSrv.deleteStudent(studentId);
         return ResponseEntity.ok().build();
