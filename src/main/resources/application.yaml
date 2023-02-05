@@ -1,0 +1,8 @@
+spring:
+    data:
+      mongodb:
+        database: cp-tutor-reactive
+        uri: mongodb://localhost:27017/admin
+
+
+#logging.level.org.springframework= DEBUG
