@@ -1,7 +1,7 @@
-package com.example.student.service.repositories.impl;
+package com.example.student.repositories.impl;
 
 import com.example.student.domain.Teacher;
-import com.example.student.service.repositories.TeacherRepo;
+import com.example.student.repositories.TeacherRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

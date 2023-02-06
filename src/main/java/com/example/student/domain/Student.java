@@ -1,6 +1,12 @@
 package com.example.student.domain;
 
+import org.springframework.data.annotation.Id;
+
+import javax.annotation.processing.Generated;
+
 public class Student {
+    @Id
+
     private Long id;
     private String name;
     private int grade;

@@ -1,4 +1,4 @@
-package com.example.student.service.repositories;
+package com.example.student.repositories;
 
 import com.example.student.domain.Teacher;
 

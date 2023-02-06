@@ -1,9 +1,12 @@
 package com.example.student.service;
 
 import com.example.student.domain.Student;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
+@Service
 public interface StudentService {
 
 
@@ -13,4 +16,6 @@ public interface StudentService {
     Optional<Student> updateStudent (Long id, Student student);
     void deleteStudent (Long id);
 
+
+    List<Student> getStudents();
 }
