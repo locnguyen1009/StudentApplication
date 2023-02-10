@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Teacher {
 
-
-  private Long id;
+  @Id
+  private String id;
 
   private String firstName;
   private String lastName;
@@ -18,17 +18,16 @@ public class Teacher {
    */
   private List<Long> specializedCourses;
 
-  public Teacher(Long id, String firstName, String lastName) {
-    this.id = id;
+  public Teacher(String firstName, String lastName) {
     this.firstName = firstName;
     this.lastName = lastName;
   }
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

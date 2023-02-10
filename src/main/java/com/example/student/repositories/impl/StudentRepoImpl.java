@@ -2,22 +2,19 @@ package com.example.student.repositories.impl;
 
 import com.example.student.domain.Student;
 import com.example.student.repositories.StudentRepo;
-import net.minidev.json.writer.UpdaterMapper;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.*;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
+
 import java.util.*;
 
 @Service
 public class StudentRepoImpl implements StudentRepo {
 
 //    TODO: using MongoTemplate to store data into MongoDb
-//    remove in memory map
-    private final Map<Long, Student> students = new HashMap<>();
+
     private final String collectionName = "Student";
-    private Long count = 0L;
 
     private MongoTemplate mongo;
 
@@ -30,26 +27,18 @@ public class StudentRepoImpl implements StudentRepo {
     }
 
     @Override
-    public Optional<Student> getStudentById(long id) {
+    public Optional<Student> getStudentById(String id) {
         return Optional.ofNullable(this.mongo.findById(id,Student.class,collectionName));
 
     }
 
     @Override
     public Student addStudent(Student student) {
-        count++;
-        student.setId(count);
-        return this.mongo.insert(student, collectionName);
+        return this.mongo.save(student, collectionName);
     }
 
     @Override
-    public Optional<Student> updateStudent(Long id, Student student) {
-//        if(!students.containsKey(id)){
-//            return Optional.empty();
-//        }
-//        student.setId(id);
-//        students.put(id, student);
-//        return Optional.of(student);
+    public Optional<Student> updateStudent(String id, Student student) {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));
@@ -57,14 +46,14 @@ public class StudentRepoImpl implements StudentRepo {
             return Optional.empty();
         }
         student.setId(id);
-        return Optional.of(this.mongo.insert(student, collectionName));
+        return Optional.of(this.mongo.save(student, collectionName));
 
     }
 
     @Override
-    public void deleteStudent(Long id) {
+    public void deleteStudent(String id) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));
-        this.mongo.findAndRemove(query, Student.class, collectionName);
+        this.mongo.remove(query, Student.class, collectionName);
     }
 }

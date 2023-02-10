@@ -27,7 +27,7 @@ public class TeacherController {
         return teacherSrv.getAllTeacher();
     }
     @GetMapping("/{teacherId}")
-    public ResponseEntity<Teacher> getTeacherById (@PathVariable Long teacherId){
+    public ResponseEntity<Teacher> getTeacherById (@PathVariable String teacherId){
         Optional<Teacher> teacher = teacherSrv.getTeacherById(teacherId);
         return teacher
                 .map(ResponseEntity::ok)
@@ -40,7 +40,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{teacherId}")
-    public ResponseEntity<Teacher> updateTeacher (@PathVariable Long teacherId, @RequestBody Teacher teacher) {
+    public ResponseEntity<Teacher> updateTeacher (@PathVariable String teacherId, @RequestBody Teacher teacher) {
         Optional<Teacher> updatedTeacher = teacherSrv.updateTeacher(teacherId, teacher);
         return updatedTeacher
                 .map(ResponseEntity::ok)

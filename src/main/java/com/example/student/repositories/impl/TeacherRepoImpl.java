@@ -1,7 +1,11 @@
 package com.example.student.repositories.impl;
 
+import com.example.student.domain.Student;
 import com.example.student.domain.Teacher;
 import com.example.student.repositories.TeacherRepo;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,35 +15,46 @@ import java.util.Optional;
 @Service
 public class TeacherRepoImpl implements TeacherRepo {
 
-    private List<Teacher> teachers = new ArrayList<>();
-    private long count = 0L;
+    private final String collectionName = "Teacher";
+//    private List<Teacher> teachers = new ArrayList<>();
+//    private long count = 0L;
+
+    private MongoTemplate mongo;
+
+    public TeacherRepoImpl(MongoTemplate mongoTemplate) {
+        this.mongo = mongoTemplate;
+    }
 
     public List<Teacher> getAllTeacher() {
-        return teachers;
+        return this.mongo.findAll(Teacher.class, collectionName);
     }
 
     @Override
-    public Optional<Teacher> getTeacherById(Long teacherId) {
-        return teachers.stream()
-                .filter(x-> x.getId().equals(teacherId))
-                .findFirst();
+    public Optional<Teacher> getTeacherById(String teacherId) {
+        return Optional.ofNullable(this.mongo.findById(teacherId, Teacher.class,collectionName));
     }
     @Override
     public Teacher addTeacher(Teacher teacher){
-        count++;
-        teacher.setId(count);
-        teachers.add(teacher);
-        return teacher;
+        return this.mongo.save(teacher, collectionName);
     }
 
     @Override
-    public Optional<Teacher> updateTeacher(Long teacherId, Teacher teacher) {
-        return Optional.empty();
+    public Optional<Teacher> updateTeacher(String teacherId, Teacher teacher) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("teacherId").is(teacherId));
+        if(!this.mongo.exists(query, Teacher.class, collectionName)){
+            return Optional.empty();
+        }
+        teacher.setId(teacherId);
+        return Optional.of(this.mongo.save(teacher, collectionName));
+
     }
 
     @Override
-    public void deleteTeacher(Long teacherId) {
-
+    public void deleteTeacher(String teacherId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("teacherId").is(teacherId));
+        this.mongo.remove(query, Teacher.class, collectionName);
     }
 
 }

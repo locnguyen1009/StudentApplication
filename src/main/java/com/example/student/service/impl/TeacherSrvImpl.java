@@ -17,12 +17,12 @@ public class TeacherSrvImpl implements TeacherService {
         this.teacherRepo = teacherRepo;
     }
 
+    @Override
     public List<Teacher> getAllTeacher() {
         return teacherRepo.getAllTeacher();
-
     }
     @Override
-    public Optional<Teacher> getTeacherById(Long teacherId) {
+    public Optional<Teacher> getTeacherById(String teacherId) {
         return teacherRepo.getTeacherById(teacherId);
     }
 
@@ -32,12 +32,12 @@ public class TeacherSrvImpl implements TeacherService {
     }
 
     @Override
-    public Optional<Teacher> updateTeacher(Long teacherId, Teacher teacher) {
+    public Optional<Teacher> updateTeacher(String teacherId, Teacher teacher) {
         return teacherRepo.updateTeacher(teacherId, teacher);
     }
 
     @Override
-    public void deleteTeacher(Long teacherId) {
+    public void deleteTeacher(String teacherId) {
 
     }
 

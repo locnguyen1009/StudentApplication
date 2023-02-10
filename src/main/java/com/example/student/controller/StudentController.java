@@ -29,7 +29,7 @@ public class StudentController {
     }
     //Adding optional for null check
     @GetMapping("/{studentId}")
-    public Student getStudentById (@PathVariable Long studentId) {
+    public Student getStudentById (@PathVariable String studentId) {
         Optional<Student> student = studentSrv.getStudentById(studentId);
         return student.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
     }
@@ -41,14 +41,14 @@ public class StudentController {
 
     @PutMapping("/{studentId}")
 
-    public ResponseEntity<Student> updateStudent(@PathVariable Long studentId, @RequestBody Student student){
+    public ResponseEntity<Student> updateStudent(@PathVariable String studentId, @RequestBody Student student){
         Optional<Student> updatedStudent = studentSrv.updateStudent(studentId, student);
-        return updatedStudent.map(st -> ResponseEntity.ok(st))
+        return updatedStudent.map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found"));
     }
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable String studentId) {
         if(studentSrv.getStudentById(studentId).isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
         }

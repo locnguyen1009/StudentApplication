@@ -25,7 +25,7 @@ public class StudentSrvImpl implements StudentService {
     }
 
     @Override
-    public Optional<Student> getStudentById(long id) {
+    public Optional<Student> getStudentById(String id) {
         return studentRepoImpl.getStudentById(id);
     }
 
@@ -35,12 +35,12 @@ public class StudentSrvImpl implements StudentService {
     }
 
     @Override
-    public Optional<Student> updateStudent(Long id, Student student) {
+    public Optional<Student> updateStudent(String id, Student student) {
             return studentRepoImpl.updateStudent(id, student);
     }
 
     @Override
-    public void deleteStudent(Long id) {
+    public void deleteStudent(String id) {
         studentRepoImpl.deleteStudent(id);
     }
 }
