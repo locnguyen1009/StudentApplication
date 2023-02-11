@@ -1,19 +1,20 @@
 package com.example.student.domain;
 
 
+import org.springframework.data.annotation.Id;
+
 /**
  * Course information contains information about the course. For example: Math101.
  */
 public class Course {
-
+  @Id
   private String id;
 
   private String name;
   private String description;
   private int credit;
 
-  public Course(String id, String name, String description, int credit) {
-    this.id = id;
+  public Course(String name, String description, int credit) {
     this.name = name;
     this.description = description;
     this.credit = credit;

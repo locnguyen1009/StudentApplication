@@ -1,9 +1,6 @@
 package com.example.student.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.annotation.processing.Generated;
 import java.util.List;
 
 public class Teacher {

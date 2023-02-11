@@ -3,6 +3,7 @@ package com.example.student.controller;
 
 import com.example.student.domain.Student;
 import com.example.student.domain.Teacher;
+import com.example.student.repositories.TeacherRepo;
 import com.example.student.service.impl.TeacherSrvImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,9 @@ import java.util.Optional;
 @RequestMapping("/teachers")
 public class TeacherController {
 
-    private final TeacherSrvImpl teacherSrv;
+    private final TeacherRepo teacherSrv;
 
-    public TeacherController(TeacherSrvImpl teacherSrv) {
+    public TeacherController(TeacherRepo teacherSrv) {
         this.teacherSrv = teacherSrv;
     }
     @GetMapping("")
@@ -45,6 +46,15 @@ public class TeacherController {
         return updatedTeacher
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Teacher not found"));
+    }
+
+    @DeleteMapping("/{teacherId}")
+    public ResponseEntity<Void> deleteTeacher(@PathVariable String teacherId) {
+        if (teacherSrv.getTeacherById(teacherId).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Teacher not found");
+        }
+        teacherSrv.deleteTeacher(teacherId);
+        return ResponseEntity.ok().build();
     }
 
 }

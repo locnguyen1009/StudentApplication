@@ -1,6 +1,7 @@
 package com.example.student.service.impl;
 
 import com.example.student.domain.Teacher;
+import com.example.student.repositories.TeacherRepo;
 import com.example.student.service.TeacherService;
 import com.example.student.repositories.impl.TeacherRepoImpl;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,9 @@ import java.util.Optional;
 @Service
 public class TeacherSrvImpl implements TeacherService {
 
-    private final TeacherRepoImpl teacherRepo;
+    private final TeacherRepo teacherRepo;
 
-    public TeacherSrvImpl(TeacherRepoImpl teacherRepo) {
+    public TeacherSrvImpl(TeacherRepo teacherRepo) {
         this.teacherRepo = teacherRepo;
     }
 
@@ -38,6 +39,7 @@ public class TeacherSrvImpl implements TeacherService {
 
     @Override
     public void deleteTeacher(String teacherId) {
+        teacherRepo.deleteTeacher(teacherId);
 
     }
 

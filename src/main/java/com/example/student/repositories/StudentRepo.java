@@ -2,6 +2,7 @@ package com.example.student.repositories;
 
 import com.example.student.domain.Student;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -34,4 +35,6 @@ public interface StudentRepo {
      * @param id
      */
     void deleteStudent (String id);
+
+    List<Student> getStudents();
 }

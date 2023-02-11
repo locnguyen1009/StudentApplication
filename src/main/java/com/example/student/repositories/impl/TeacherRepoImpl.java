@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +15,8 @@ import java.util.Optional;
 public class TeacherRepoImpl implements TeacherRepo {
 
     private final String collectionName = "Teacher";
-//    private List<Teacher> teachers = new ArrayList<>();
-//    private long count = 0L;
 
-    private MongoTemplate mongo;
+    private final MongoTemplate mongo;
 
     public TeacherRepoImpl(MongoTemplate mongoTemplate) {
         this.mongo = mongoTemplate;
@@ -39,13 +36,13 @@ public class TeacherRepoImpl implements TeacherRepo {
     }
 
     @Override
-    public Optional<Teacher> updateTeacher(String teacherId, Teacher teacher) {
+    public Optional<Teacher> updateTeacher(String id, Teacher teacher) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("teacherId").is(teacherId));
+        query.addCriteria(Criteria.where("id").is(id));
         if(!this.mongo.exists(query, Teacher.class, collectionName)){
             return Optional.empty();
         }
-        teacher.setId(teacherId);
+        teacher.setId(id);
         return Optional.of(this.mongo.save(teacher, collectionName));
 
     }

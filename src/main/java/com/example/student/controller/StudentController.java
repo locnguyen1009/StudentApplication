@@ -2,8 +2,6 @@ package com.example.student.controller;
 
 import com.example.student.domain.Student;
 import com.example.student.service.StudentService;
-import com.example.student.service.impl.StudentSrvImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -16,12 +16,13 @@ public class StudentRepoImpl implements StudentRepo {
 
     private final String collectionName = "Student";
 
-    private MongoTemplate mongo;
+    private final MongoTemplate mongo;
 
     public StudentRepoImpl(MongoTemplate mongoTemplate) {
         this.mongo = mongoTemplate;
     }
 
+    @Override
     public List<Student> getStudents(){
         return this.mongo.findAll(Student.class, collectionName);
     }
