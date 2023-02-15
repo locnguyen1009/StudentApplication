@@ -4,5 +4,8 @@ spring:
         database: loc-school
         uri: mongodb://localhost:27017/admin
 
+springdoc:
+  swagger-ui:
+    path: /
 
 #logging.level.org.springframework= DEBUG
