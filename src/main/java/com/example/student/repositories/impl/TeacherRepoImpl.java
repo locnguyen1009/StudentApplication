@@ -22,6 +22,8 @@ public class TeacherRepoImpl implements TeacherRepo {
         this.mongo = mongoTemplate;
     }
 
+
+    @Override
     public List<Teacher> getAllTeacher() {
         return this.mongo.findAll(Teacher.class, collectionName);
     }
@@ -53,5 +55,6 @@ public class TeacherRepoImpl implements TeacherRepo {
         query.addCriteria(Criteria.where("teacherId").is(teacherId));
         this.mongo.remove(query, Teacher.class, collectionName);
     }
+
 
 }

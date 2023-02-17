@@ -1,11 +1,7 @@
 package com.example.student.controller;
 
 import com.example.student.domain.Course;
-import com.example.student.repositories.CourseRepo;
-import com.example.student.repositories.impl.CourseRepoImpl;
 import com.example.student.service.CourseService;
-import com.example.student.service.impl.CourseSrvImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +16,8 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    public CourseController(CourseSrvImpl courseSrv) {
-        this.courseService = courseSrv;
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
     }
 
 

@@ -1,9 +1,8 @@
 package com.example.student.service.impl;
 
 import com.example.student.domain.Course;
-import com.example.student.repositories.impl.CourseRepoImpl;
+import com.example.student.repositories.CourseRepo;
 import com.example.student.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +10,10 @@ import java.util.Optional;
 
 @Service
 public class CourseSrvImpl implements CourseService {
-    private final CourseRepoImpl courseRepo;
 
-    public CourseSrvImpl(CourseRepoImpl courseRepo) {
+    private final CourseRepo courseRepo;
+
+    public CourseSrvImpl(CourseRepo courseRepo) {
         this.courseRepo = courseRepo;
     }
 

@@ -3,7 +3,6 @@ package com.example.student.service.impl;
 import com.example.student.domain.Teacher;
 import com.example.student.repositories.TeacherRepo;
 import com.example.student.service.TeacherService;
-import com.example.student.repositories.impl.TeacherRepoImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
