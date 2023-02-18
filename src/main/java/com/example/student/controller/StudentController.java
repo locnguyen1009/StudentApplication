@@ -25,7 +25,7 @@ public class StudentController {
     public List<Student> getStudents(){
         return studentSrv.getStudents();
     }
-    //Adding optional for null check
+
     @GetMapping("/{studentId}")
     public ResponseEntity<Student> getStudentById (@PathVariable String studentId) {
         Optional<Student> student = studentSrv.getStudentById(studentId);

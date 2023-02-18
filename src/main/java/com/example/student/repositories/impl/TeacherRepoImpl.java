@@ -6,12 +6,14 @@ import com.example.student.repositories.TeacherRepo;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 
+@Component
 public class TeacherRepoImpl implements TeacherRepo {
 
     private final String collectionName = "Teacher";
