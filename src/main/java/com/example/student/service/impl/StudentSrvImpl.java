@@ -3,12 +3,12 @@ package com.example.student.service.impl;
 import com.example.student.domain.Student;
 import com.example.student.repositories.StudentRepo;
 import com.example.student.service.StudentService;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
 public class StudentSrvImpl implements StudentService {
 
 //    TODO: inject StudentRepo here to interact with persistent layer
