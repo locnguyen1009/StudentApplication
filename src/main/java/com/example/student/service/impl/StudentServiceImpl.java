@@ -3,20 +3,21 @@ package com.example.student.service.impl;
 import com.example.student.domain.Student;
 import com.example.student.repositories.StudentRepo;
 import com.example.student.service.StudentService;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Optional;
 
-
-public class StudentSrvImpl implements StudentService {
+@Service
+public class StudentServiceImpl implements StudentService {
 
 //    TODO: inject StudentRepo here to interact with persistent layer
 //    TODO: remove students map from here.
 
     private final StudentRepo studentRepo;
 
-    public StudentSrvImpl(StudentRepo studentRepo) {
+    public StudentServiceImpl(StudentRepo studentRepo) {
         this.studentRepo = studentRepo;
     }
 
