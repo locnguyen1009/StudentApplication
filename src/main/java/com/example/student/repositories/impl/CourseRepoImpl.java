@@ -1,7 +1,6 @@
 package com.example.student.repositories.impl;
 
 import com.example.student.domain.Course;
-import com.example.student.domain.Teacher;
 import com.example.student.repositories.CourseRepo;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -32,7 +31,7 @@ public class CourseRepoImpl implements CourseRepo {
 
     @Override
     public Course addCourse(Course course) {
-        return this.mongo.save(course);
+        return this.mongo.save(course, collectionName);
     }
 
     @Override
@@ -49,6 +48,8 @@ public class CourseRepoImpl implements CourseRepo {
 
     @Override
     public void deleteCourse(String courseId) {
-
+        Query query = new Query();
+        query.addCriteria(Criteria.where("courseId").is(courseId));
+        this.mongo.remove(query, Course.class, collectionName);
     }
 }

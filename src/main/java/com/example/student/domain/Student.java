@@ -5,11 +5,11 @@ import org.springframework.data.annotation.Id;
 public class Student {
     @Id
     private String id;
+
     private String name;
     private int grade;
 
     public Student(String name, Integer grade) {
-
         this.name = name;
         this.grade = grade;
     }
