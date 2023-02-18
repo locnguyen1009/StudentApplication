@@ -1,14 +1,19 @@
 package com.example.student.service;
 
 import com.example.student.domain.Student;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public interface StudentService {
 
 
 //   TODO: read java.util.Optional in OCP book. What would be better in case the student doesn't exist, null or Optional of empty?
-    Student getStudentById(long id);
+    Optional<Student> getStudentById(String id);
     Student addStudent (Student student);
-    Student updateStudent (Long id, Student student);
-    void deleteStudent (Long id);
-
+    Optional<Student> updateStudent (String id, Student student);
+    void deleteStudent (String id);
+    List<Student> getStudents();
 }

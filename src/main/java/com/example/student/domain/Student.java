@@ -1,22 +1,24 @@
 package com.example.student.domain;
 
+import org.springframework.data.annotation.Id;
+
 public class Student {
-    private Long id;
+    @Id
+    private String id;
+
     private String name;
     private int grade;
 
-    public Student(Long id, String name, Integer grade) {
-
-        this.id = id;
+    public Student(String name, Integer grade) {
         this.name = name;
         this.grade = grade;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

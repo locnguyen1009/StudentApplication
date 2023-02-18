@@ -1,7 +1,7 @@
 package com.example.student.controller;
 
 import com.example.student.domain.Student;
-import com.example.student.service.impl.StudentSrvImpl;
+import com.example.student.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,9 @@ import java.util.Optional;
 @RequestMapping("/students")
 public class StudentController {
 
-    private final StudentSrvImpl studentSrv;
+    private final StudentService studentSrv;
 
-    public StudentController(StudentSrvImpl studentSrv) {
+    public StudentController(StudentService studentSrv) {
         this.studentSrv = studentSrv;
     }
 
@@ -27,13 +27,10 @@ public class StudentController {
     }
     //Adding optional for null check
     @GetMapping("/{studentId}")
-    public Student getStudentById (@PathVariable Long studentId) {
-        Optional<Student> student = Optional.ofNullable(studentSrv.getStudentById(studentId));
-//        if (student == null) {
-//            throw new StudentNotFoundException("id " + studentId);
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
-//        }
-        return student.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
+    public ResponseEntity<Student> getStudentById (@PathVariable String studentId) {
+        Optional<Student> student = studentSrv.getStudentById(studentId);
+        return student.map(ResponseEntity::ok)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
     }
 
     @PostMapping("")
@@ -42,21 +39,18 @@ public class StudentController {
     }
 
     @PutMapping("/{studentId}")
-//adding optional for null check
-    public /*ResponseEntity<Student>*/ Student updateStudent(@PathVariable Long studentId, @RequestBody Student student){
-        Optional<Student> updateStu = Optional.ofNullable(studentSrv.updateStudent(studentId, student));
-//        if (updateStu== null) {
-//            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found");
-//        }
-//        return new ResponseEntity<>(updateStu, HttpStatus.OK);
-        return updateStu.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"student not found"));
+
+    public ResponseEntity<Student> updateStudent(@PathVariable String studentId, @RequestBody Student student){
+        Optional<Student> updatedStudent = studentSrv.updateStudent(studentId, student);
+        return updatedStudent
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found"));
     }
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
-        if(studentSrv.getStudentById(studentId)==null){
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> deleteStudent(@PathVariable String studentId) {
+        if(studentSrv.getStudentById(studentId).isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
         }
         studentSrv.deleteStudent(studentId);
         return ResponseEntity.ok().build();
