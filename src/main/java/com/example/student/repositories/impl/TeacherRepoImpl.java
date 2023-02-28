@@ -42,7 +42,7 @@ public class TeacherRepoImpl implements TeacherRepo {
     @Override
     public Optional<Teacher> updateTeacher(String id, Teacher teacher) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(id));
+        query.addCriteria(Criteria.where("_id").is(id));
         if(!this.mongo.exists(query, Teacher.class, collectionName)){
             return Optional.empty();
         }
@@ -54,7 +54,7 @@ public class TeacherRepoImpl implements TeacherRepo {
     @Override
     public void deleteTeacher(String teacherId) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("teacherId").is(teacherId));
+        query.addCriteria(Criteria.where("_id").is(teacherId));
         this.mongo.remove(query, Teacher.class, collectionName);
     }
 

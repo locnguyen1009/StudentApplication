@@ -37,7 +37,7 @@ public class CourseRepoImpl implements CourseRepo {
     @Override
     public Optional<Course> updateCourse(String courseId, Course course) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("CourseId").is(courseId));
+        query.addCriteria(Criteria.where("id").is(courseId));
         if(!this.mongo.exists(query, Course.class, collectionName)){
             return Optional.empty();
         }
@@ -49,7 +49,7 @@ public class CourseRepoImpl implements CourseRepo {
     @Override
     public void deleteCourse(String courseId) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("courseId").is(courseId));
+        query.addCriteria(Criteria.where("id").is(courseId));
         this.mongo.remove(query, Course.class, collectionName);
     }
 }
