@@ -1,7 +1,6 @@
 package com.example.student.repositories;
 
-import com.example.student.domain.Course;
-import com.example.student.domain.Teacher;
+import com.example.student.entity.Course;
 
 import java.util.List;
 import java.util.Optional;

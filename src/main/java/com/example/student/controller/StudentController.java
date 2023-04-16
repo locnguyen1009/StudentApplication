@@ -1,6 +1,7 @@
 package com.example.student.controller;
 
-import com.example.student.domain.Student;
+import com.example.student.entity.Student;
+import com.example.student.request.StudentReq;
 import com.example.student.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,9 @@ public class StudentController {
     }
 
     @PostMapping("")
-    public Student addStudent(@RequestBody Student student) {
-        return studentSrv.addStudent(student);
+    public Student addStudent(@RequestBody StudentReq studentReq) {
+        // convert StudentReq -> student
+        return studentSrv.addStudent(studentReq);
     }
 
     @PutMapping("/{studentId}")

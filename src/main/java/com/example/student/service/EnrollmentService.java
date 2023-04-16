@@ -1,19 +1,22 @@
 package com.example.student.service;
 
-import com.example.student.domain.Enrollment;
+import com.example.student.entity.Enrollment;
+import com.example.student.response.EnrollmentResp;
+import com.example.student.response.EnrollmentResult;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface EnrollmentService {
-    List<Enrollment> getEnrollment();
+    List<Enrollment> getAllEnrollment();
+    List<EnrollmentResp> getAllEnrollmentsDetail();
     Optional<Enrollment> getEnrollmentById(String id);
-    Enrollment addEnrollment(Enrollment enrollment);
+    Optional<EnrollmentResp> getEnrollmentDetailById(String id);
+    Optional<Enrollment> createEnrollment(Enrollment enrollment, String courseId);
     Optional<Enrollment> updateEnrollment(String id, Enrollment enrollment);
-    void deleteEnrollment(String id);
-    Optional<Enrollment> assignTeacherToEnrollment(String enrollmentId, String teacherId);
 
-    Optional<Enrollment> assignCourseToEnrollment(String enrollmentId, String courseId);
+    Optional<EnrollmentResult> assignTeacherToEnrollment(String enrollmentId, String teacherId);
 
-    Optional<Enrollment> assignStudentsToEnrollment(String enrollmentId, String studentId);
+    Optional<EnrollmentResult> enrollStudents(String enrollmentId, String studentId);
+    Optional<EnrollmentResp> removeStudents(String enrollmentId, String studentId);
 }

@@ -1,13 +1,11 @@
 package com.example.student.repositories.impl;
 
-import com.example.student.domain.Student;
-import com.example.student.domain.Teacher;
+import com.example.student.entity.Teacher;
 import com.example.student.repositories.TeacherRepo;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +34,7 @@ public class TeacherRepoImpl implements TeacherRepo {
     }
     @Override
     public Teacher addTeacher(Teacher teacher){
-        return this.mongo.save(teacher, collectionName);
+        return this.mongo.insert(teacher, collectionName);
     }
 
     @Override

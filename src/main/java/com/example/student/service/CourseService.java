@@ -1,6 +1,6 @@
 package com.example.student.service;
 
-import com.example.student.domain.Course;
+import com.example.student.entity.Course;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

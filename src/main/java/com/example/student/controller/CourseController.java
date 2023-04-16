@@ -1,6 +1,6 @@
 package com.example.student.controller;
 
-import com.example.student.domain.Course;
+import com.example.student.entity.Course;
 import com.example.student.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

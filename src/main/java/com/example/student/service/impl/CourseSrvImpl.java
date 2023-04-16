@@ -1,6 +1,6 @@
 package com.example.student.service.impl;
 
-import com.example.student.domain.Course;
+import com.example.student.entity.Course;
 import com.example.student.repositories.CourseRepo;
 import com.example.student.service.CourseService;
 import org.springframework.stereotype.Service;

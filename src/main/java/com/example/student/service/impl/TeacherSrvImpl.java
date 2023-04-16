@@ -1,21 +1,19 @@
 package com.example.student.service.impl;
 
-import com.example.student.domain.Teacher;
+import com.example.student.entity.Teacher;
 import com.example.student.repositories.TeacherRepo;
+import com.example.student.request.TeacherReq;
 import com.example.student.service.TeacherService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class TeacherSrvImpl implements TeacherService {
 
     private final TeacherRepo teacherRepo;
-
-    public TeacherSrvImpl(TeacherRepo teacherRepo) {
-        this.teacherRepo = teacherRepo;
-    }
 
     @Override
     public List<Teacher> getAllTeacher() {
@@ -27,7 +25,11 @@ public class TeacherSrvImpl implements TeacherService {
     }
 
     @Override
-    public Teacher addTeacher(Teacher teacher){
+    public Teacher addTeacher(TeacherReq teacherReq){
+        Teacher teacher = new Teacher();
+        teacher.setFirstName(teacherReq.getFirstName());
+        teacher.setLastName(teacherReq.getLastName());
+        teacher.setSpecializedCourses(teacherReq.getSpecializedCourses());
         return teacherRepo.addTeacher(teacher);
     }
 
@@ -41,6 +43,4 @@ public class TeacherSrvImpl implements TeacherService {
         teacherRepo.deleteTeacher(teacherId);
 
     }
-
-
 }

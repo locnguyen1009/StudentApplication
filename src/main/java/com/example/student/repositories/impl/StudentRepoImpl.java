@@ -1,6 +1,6 @@
 package com.example.student.repositories.impl;
 
-import com.example.student.domain.Student;
+import com.example.student.entity.Student;
 import com.example.student.repositories.StudentRepo;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.*;
@@ -36,7 +36,7 @@ public class StudentRepoImpl implements StudentRepo {
 
     @Override
     public Student addStudent(Student student) {
-        return this.mongo.save(student, collectionName);
+        return this.mongo.insert(student, collectionName);
     }
 
     @Override

@@ -1,13 +1,11 @@
-package com.example.student.domain;
+package com.example.student.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.*;
 
@@ -30,10 +28,11 @@ import java.util.*;
 public class Enrollment {
   @Id
   private String id;
-  private Course courseId;
-  private Teacher teacherId;
+
+  private String courseId;
+  private String teacherId;
   private Integer maxCapacity;
-  private List<Student> studentIds = new ArrayList<>();
+  private Set<String> studentIds = new HashSet<>();
 
   @JsonFormat(pattern = "yyyy-MM-dd")
   private Date enrollDeadline;

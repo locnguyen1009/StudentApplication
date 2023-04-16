@@ -1,7 +1,7 @@
 package com.example.student.service;
 
-import com.example.student.domain.Student;
-import com.example.student.domain.Teacher;
+import com.example.student.entity.Teacher;
+import com.example.student.request.TeacherReq;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public interface TeacherService {
 
     Optional<Teacher> getTeacherById(String teacherId);
 
-    Teacher addTeacher(Teacher teacher);
+    Teacher addTeacher(TeacherReq teacherReq);
 
     Optional<Teacher> updateTeacher(String teacherId, Teacher teacher);
 

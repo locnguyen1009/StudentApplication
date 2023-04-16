@@ -1,7 +1,8 @@
 package com.example.student.service.impl;
 
-import com.example.student.domain.Student;
+import com.example.student.entity.Student;
 import com.example.student.repositories.StudentRepo;
+import com.example.student.request.StudentReq;
 import com.example.student.service.StudentService;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student addStudent(Student student) {
+    public Student addStudent(StudentReq studentReq) {
+        Student student = new Student();
+        student.setGrade(studentReq.getGrade());
+        student.setName(studentReq.getName());
         return studentRepo.addStudent(student);
     }
 

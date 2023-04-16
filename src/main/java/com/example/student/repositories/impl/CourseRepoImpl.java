@@ -1,6 +1,6 @@
 package com.example.student.repositories.impl;
 
-import com.example.student.domain.Course;
+import com.example.student.entity.Course;
 import com.example.student.repositories.CourseRepo;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

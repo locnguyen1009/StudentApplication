@@ -1,12 +1,9 @@
 package com.example.student.controller;
 
 
-import com.example.student.domain.Student;
-import com.example.student.domain.Teacher;
-import com.example.student.repositories.TeacherRepo;
+import com.example.student.entity.Teacher;
+import com.example.student.request.TeacherReq;
 import com.example.student.service.TeacherService;
-import com.example.student.service.impl.TeacherSrvImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +36,8 @@ public class TeacherController {
     }
 
     @PostMapping("")
-    public Teacher addTeacher (@RequestBody Teacher teacher){
-        return teacherSrv.addTeacher(teacher);
+    public Teacher addTeacher (@RequestBody TeacherReq teacherReq){
+        return teacherSrv.addTeacher(teacherReq);
     }
 
     @PutMapping("/{teacherId}")

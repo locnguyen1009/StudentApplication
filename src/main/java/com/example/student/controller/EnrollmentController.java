@@ -1,6 +1,8 @@
 package com.example.student.controller;
 
-import com.example.student.domain.Enrollment;
+import com.example.student.entity.Enrollment;
+import com.example.student.response.EnrollmentResp;
+import com.example.student.response.EnrollmentResult;
 import com.example.student.service.EnrollmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,15 +15,20 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/enrollment")
+@RequestMapping("/enrollments")
 public class EnrollmentController {
     // /regiserClass
 
     private final EnrollmentService enrollmentService;
 
     @GetMapping("")
-    public List<Enrollment> getAllEnrollment() {
-        return enrollmentService.getEnrollment();
+    public List<Enrollment> getAllEnrollments(){
+        return enrollmentService.getAllEnrollment();
+    }
+
+    @GetMapping("/detail")
+    public List<EnrollmentResp> getAllEnrollmentsDetail() {
+        return enrollmentService.getAllEnrollmentsDetail();
     }
 
     @GetMapping("/{id}")
@@ -31,47 +38,43 @@ public class EnrollmentController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "course not Found"));
     }
 
-    @PostMapping("")
-    public Enrollment addEnrollment(@RequestBody Enrollment enrollment) {
-        return enrollmentService.addEnrollment(enrollment);
+    @GetMapping("/details/{enrollmentId}")
+    public Optional<EnrollmentResp> getEnrollmentDetailById(@PathVariable String enrollmentId){
+        return enrollmentService.getEnrollmentDetailById(enrollmentId);
+    }
+
+    @PostMapping("/{courseId}")
+    public ResponseEntity<Enrollment> createEnrollment(@RequestBody Enrollment enrollment, @PathVariable String courseId) {
+        return enrollmentService.createEnrollment(enrollment, courseId)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CourseId is not found"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Enrollment> updateEnrollment (@PathVariable String id, Enrollment enrollment){
+    public ResponseEntity<Enrollment> updateEnrollment (@PathVariable String id, @RequestBody Enrollment enrollment){
         return enrollmentService.updateEnrollment(id, enrollment)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "course not Found"));
     }
 
-    @PutMapping("/{enrollmentId}/course/{courseId}")
-    public ResponseEntity<Enrollment> assignCourseToEnrollment(@PathVariable String enrollmentId, @PathVariable String courseId){
-        return enrollmentService.assignCourseToEnrollment(enrollmentId,courseId)
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "course not Found"));
 
-    }
     @PutMapping("{enrollmentId}/teacher/{teacherId}")
-    public ResponseEntity<Enrollment> assignTeacherToEnrollement(@PathVariable String enrollmentId, @PathVariable String teacherId){
-        return enrollmentService.assignTeacherToEnrollment(enrollmentId, teacherId)
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "course not Found"));
+    public Optional<EnrollmentResult> assignTeacherToEnrollement(@PathVariable String enrollmentId, @PathVariable String teacherId){
+        return enrollmentService.assignTeacherToEnrollment(enrollmentId, teacherId);
+//                .map(ResponseEntity::ok)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "course not Found"));
     }
 
     @PutMapping("/{enrollmentId}/student/{studentId}")
-    public ResponseEntity<Enrollment> assignStudentToEnrollement(@PathVariable String enrollmentId, @PathVariable String studentId){
-        return enrollmentService.assignStudentsToEnrollment(enrollmentId, studentId)
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "course not Found"));
+    public Optional<EnrollmentResult> enrollStudents(@PathVariable String enrollmentId, @PathVariable String studentId){
+        return enrollmentService.enrollStudents(enrollmentId, studentId);
+
     }
 
+    @DeleteMapping("/{enrollmentId}/student/{studentId}")
+    public Optional<EnrollmentResp> removeStudents(@PathVariable String enrollmentId, @PathVariable String studentId){
+        return enrollmentService.removeStudents(enrollmentId, studentId);
 
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEnrollment(@PathVariable String id) {
-        if(enrollmentService.getEnrollmentById(id).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
-        }
-        enrollmentService.deleteEnrollment(id);
-        return ResponseEntity.ok().build();
     }
+
 }

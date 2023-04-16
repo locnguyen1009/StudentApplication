@@ -1,7 +1,10 @@
 package com.example.student.repositories.impl;
 
-import com.example.student.domain.Enrollment;
+import com.example.student.entity.Enrollment;
+import com.example.student.entity.Student;
+import com.example.student.entity.Teacher;
 import com.example.student.repositories.EnrollmentRepo;
+import com.example.student.repositories.TeacherRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -15,12 +18,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EnrollmentRepoImpl implements EnrollmentRepo {
 
-    private final String collectionName = "CourseEnrollment";
+    private final String collectionName = "Enrollment";
 
     private final MongoTemplate mongo;
 
     @Override
-    public List<Enrollment> getEnrollment() {
+    public List<Enrollment> getEnrollments() {
         return this.mongo.findAll(Enrollment.class,collectionName);
     }
 
@@ -30,25 +33,18 @@ public class EnrollmentRepoImpl implements EnrollmentRepo {
     }
 
     @Override
-    public Enrollment addEnrollment(Enrollment enrollment) {
+    public Enrollment createEnrollment(Enrollment enrollment) {
         return this.mongo.insert(enrollment, collectionName);
     }
 
     @Override
-    public Optional<Enrollment> updateEnrollment(String id, Enrollment enrollment) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(id));
-        if(!this.mongo.exists(query, Enrollment.class, collectionName)){
-            return Optional.empty();
-        }
-        enrollment.setId(id);
+    public Optional<Enrollment> updateEnrollment(String enrollmentId, Enrollment enrollment) {
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("id").is(enrollmentId));
+//        if(!this.mongo.exists(query, Enrollment.class, collectionName)){
+//            return Optional.empty();
+//        }
         return Optional.of(this.mongo.save(enrollment, collectionName));
     }
 
-    @Override
-    public void deleteEnrollment(String id) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(id));
-        this.mongo.remove(query, Enrollment.class, collectionName);
-    }
 }
